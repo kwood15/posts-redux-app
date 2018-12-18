@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createPost } from '../actions/postActions';
 
-class PostsForm extends Component {
+class PostForm extends Component {
   state = {
     title: '',
     body: ''
@@ -12,22 +15,14 @@ class PostsForm extends Component {
     });
   }
 
-  onSubmit = (e) => {
+  handleSubmit = (e) => {
+    const { title, body } = this.state;
     e.preventDefault();
     const post = {
-      title: this.state.title,
-      body: this.state.body
+      title,
+      body
     };
-
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(post)
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
+    this.props.createPost(post);
   }
 
   render() {
@@ -35,7 +30,7 @@ class PostsForm extends Component {
     return (
       <div>
         <h1>Add Post</h1>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="title">Title: </label>
             <input
@@ -62,4 +57,8 @@ class PostsForm extends Component {
   }
 }
 
-export default PostsForm;
+PostForm.propTypes = {
+  createPost: PropTypes.func.isRequired
+};
+
+export default connect(null, { createPost })(PostForm);

@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Posts from './components/Posts';
-import PostsForm from './components/PostsForm';
+import PostForm from './components/PostForm';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <PostsForm />
-        <Posts />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <section className="posts">
+    <PostForm />
+    <Posts />
+  </section>
+);
 
 export default App;
