@@ -8,9 +8,9 @@ class Posts extends Component {
     this.props.fetchPosts();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.newPost !== this.props.newPost) {
-      this.props.posts.unshift(this.props.newPost);
+  componentWillReceiveProps(nextProps) { //todo
+    if (nextProps.newPost) {
+      this.props.posts.unshift(nextProps.newPost);
     }
   }
 
