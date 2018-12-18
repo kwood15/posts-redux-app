@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST } from'./types';
+import { FETCH_POSTS, NEW_POST } from'../constants/types';
 
 export const fetchPosts = () => dispatch => {
   fetch('https://jsonplaceholder.typicode.com/posts')
@@ -10,7 +10,6 @@ export const fetchPosts = () => dispatch => {
 }
 
 export const createPost = post => dispatch => {
-  console.log('action called');
   fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
     headers: {

@@ -31,6 +31,9 @@
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "enzyme-to-json": "^3.3.5",
-    "redux-devtools-extension": "^2.13.7"
+    "fetch-mock": "^7.2.7",
+    "node-fetch": "^2.3.0",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-mock-store": "^1.5.3"
   }
 }
