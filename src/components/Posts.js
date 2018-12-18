@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../actions/postActions';
 
 class Posts extends Component {
-  state = {
-    posts: []
-  };
-
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(data => this.setState({ 
-        posts: data 
-      }));
+    this.props.fetchPosts();
   }
-  
+
   render() {
-    const { posts } = this.state;
+    const { posts } = this.props;
     return (
       <div>
         <h1>Posts</h1>
@@ -29,4 +23,8 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+const mapStateToProps = state => ({
+  posts: state.posts.items
+});
+
+export default connect(mapStateToProps, { fetchPosts })(Posts);

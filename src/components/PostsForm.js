@@ -49,7 +49,7 @@ class PostsForm extends Component {
           <div>
             <label htmlFor="body">Body: </label>
             <textarea
-              id="formBody"
+              id="body"
               name="body"
               value={body}
               onChange={this.handleChange}
