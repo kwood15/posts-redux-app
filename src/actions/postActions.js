@@ -1,4 +1,4 @@
-import fetch from 'cross-fetch';
+import 'cross-fetch/polyfill';
 
 import {
   FETCH_POSTS_REQUEST,
@@ -23,7 +23,7 @@ const fetchPostsFailed = (error) => ({
 
 const fetchPosts = () => dispatch => {
   dispatch(fetchPostsRequest());
-  fetch('https://jsonplaceholder.typicode.com/posts')
+  return fetch('https://jsonplaceholder.typicode.com/posts')
     .then(res => res.json())
     .then(posts => dispatch(fetchPostsSuccess(posts)))
     .catch(error => dispatch(fetchPostsFailed(error)));

@@ -17,20 +17,11 @@ describe('async action creators', () => {
   });
 
   it('creates FETCH_POSTS_REQUEST_SUCCESS when fetching posts has been done', () => {
-    fetchMock.getOnce('https://jsonplaceholder.typicode.com/posts', {
-      type: types.FETCH_POSTS_REQUEST_SUCCESS,
-      payload: {
-        posts: ['test']
-      }
-    });
+    fetchMock.getOnce('https://jsonplaceholder.typicode.com/posts', ['test']);
 
     const expectedActions = [
       { type: types.FETCH_POSTS_REQUEST },
-      { type: types.FETCH_POSTS_REQUEST_SUCCESS,
-        payload: {
-          posts: ['test']
-        }
-      }
+      { type: types.FETCH_POSTS_REQUEST_SUCCESS, payload: ['test'] }
     ];
 
     return store.dispatch(actions.fetchPosts()).then(() => {
