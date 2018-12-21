@@ -4,7 +4,9 @@ import {
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_REQUEST_SUCCESS,
   FETCH_POSTS_REQUEST_FAILED,
-  NEW_POST
+  NEW_POST_REQUEST_FAILED,
+  NEW_POST_REQUEST_SUCCESS,
+  NEW_POST_REQUEST
 } from '../constants/types';
 
 const fetchPostsRequest = () => ({
@@ -21,6 +23,20 @@ const fetchPostsFailed = (error) => ({
   error
 });
 
+const createPostRequest = () => ({
+  type: NEW_POST_REQUEST
+});
+
+const createPostRequestSuccess = payload => ({
+  type: NEW_POST_REQUEST_SUCCESS,
+  payload
+});
+
+const createPostRequestFailed = (error) => ({
+  type: NEW_POST_REQUEST_FAILED,
+  error
+});
+
 const fetchPosts = () => dispatch => {
   dispatch(fetchPostsRequest());
   return fetch('https://jsonplaceholder.typicode.com/posts')
@@ -30,7 +46,8 @@ const fetchPosts = () => dispatch => {
 };
 
 const createPost = post => dispatch => {
-  fetch('https://jsonplaceholder.typicode.com/posts', {
+  dispatch(createPostRequest());
+  return fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
@@ -38,10 +55,8 @@ const createPost = post => dispatch => {
     body: JSON.stringify(post)
   })
   .then(res => res.json())
-  .then(post => dispatch({
-    type: NEW_POST,
-    payload: post
-  }));
+  .then(post => dispatch(createPostRequestSuccess(post)))
+  .catch(error => dispatch(createPostRequestFailed(error)));
 }
 
 export {
