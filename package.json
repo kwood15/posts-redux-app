@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cross-fetch": "^3.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -13,11 +12,29 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
+  "devDependencies": {
+    "cross-fetch": "^3.0.0",
+    "coveralls": "^3.0.2",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.3.5",
+    "fetch-mock": "^7.2.7",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-mock-store": "^1.5.3"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
+    "test:ci": "react-scripts test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/serviceWorker.js",
+      "!src/setupTests.js"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,13 +44,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.7.1",
-    "enzyme-to-json": "^3.3.5",
-    "fetch-mock": "^7.2.7",
-    "redux-devtools-extension": "^2.13.7",
-    "redux-mock-store": "^1.5.3"
-  }
+  ]
 }
