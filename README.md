@@ -1,4 +1,4 @@
-# A Posts application [![Build Status](https://travis-ci.org/kwood15/posts-redux-app.svg?branch=master)](https://travis-ci.org/kwood15/posts-redux-app) [![Coverage Status](https://coveralls.io/repos/github/kwood15/posts-redux-app/badge.svg?branch=master&&kill_cache=1)](https://coveralls.io/github/kwood15/posts-redux-app?branch=master)
+# A Posts application [![Build Status](https://travis-ci.org/kwood15/posts-redux-app.svg?branch=master)](https://travis-ci.org/kwood15/posts-redux-app) [![Coverage Status](https://img.shields.io/coveralls/github/kwood15/posts-redux-app/master.svg)](https://coveralls.io/github/kwood15/posts-redux-app?branch=master)
 > Built with React and Redux
 
 ## Get Started

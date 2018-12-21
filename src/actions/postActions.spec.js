@@ -7,25 +7,75 @@ import * as types from '../constants/types';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('async action creators', () => {
-  afterEach(() => {
-    fetchMock.restore();
+describe('Async action creators', () => {
+  describe('A `fetchPosts()` request initialises', () => {
+    afterEach(() => {
+      fetchMock.restore();
+    });
+
+    const store = mockStore({
+      posts: []
+    });
+
+    it('creates a FETCH_POSTS_REQUEST action', () => {
+      const expectedActions = {
+        type: types.FETCH_POSTS_REQUEST
+      };
+
+      return store.dispatch(actions.fetchPosts()).then(() => {
+        const actions = store.getActions()
+        expect(actions[0]).toEqual(expectedActions);
+      });
+    });
   });
 
-  const store = mockStore({
-    posts: []
+  describe('A successful `fetchPosts()` request', () => {
+    afterEach(() => {
+      fetchMock.restore();
+    });
+
+    const store = mockStore({
+      posts: []
+    });
+
+    it('creates a FETCH_POSTS_REQUEST_SUCCESS action', () => {
+      fetchMock.getOnce('https://jsonplaceholder.typicode.com/posts', ['test']);
+
+      const expectedActions = [
+        { type: types.FETCH_POSTS_REQUEST },
+        { type: types.FETCH_POSTS_REQUEST_SUCCESS, payload: ['test'] }
+      ];
+
+      return store.dispatch(actions.fetchPosts()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
   });
 
-  it('creates FETCH_POSTS_REQUEST_SUCCESS when fetching posts has been done', () => {
-    fetchMock.getOnce('https://jsonplaceholder.typicode.com/posts', ['test']);
+  describe('A failed `fetchPosts()` request', () => {
+    afterEach(() => {
+      fetchMock.restore();
+    });
 
-    const expectedActions = [
-      { type: types.FETCH_POSTS_REQUEST },
-      { type: types.FETCH_POSTS_REQUEST_SUCCESS, payload: ['test'] }
-    ];
+    const store = mockStore({
+      posts: []
+    });
 
-    return store.dispatch(actions.fetchPosts()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+    it('creates a FETCH_POSTS_REQUEST_FAILED action', () => {
+      fetchMock.getOnce('https://jsonplaceholder.typicode.com/posts', {
+        throws: {
+          error: 'Request failed'
+        }
+      });
+
+      const expectedActions = [
+        { type: types.FETCH_POSTS_REQUEST },
+        { type: types.FETCH_POSTS_REQUEST_FAILED, error: { error: 'Request failed' } }
+      ];
+
+      return store.dispatch(actions.fetchPosts()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
 });
